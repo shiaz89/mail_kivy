@@ -6,21 +6,20 @@ from email.mime.text import MIMEText  # Текст/HTML
 
 
 # from email.mime.image import MIMEImage              # Изображения
-def send_mail(addr_from: str = "shiaz@yandex.ru", addr_to: str = "shiaz@yandex.ru", password: str = "siz035036503530",
-              text_msg: str = 'Текст'):
+def send_mail(addr_from: str, addr_to: str, password: str, text_msg: str = 'Текст'):
     """
     Отправляет письмо
 
     :param addr_from: От кого.
     :param addr_to: Кому письмо.
     :param password: Пароль.
+    :param text_msg: Текст сообщения.
     """
     msg = MIMEMultipart()  # Создаем сообщение
     msg['From'] = addr_from  # Адресат
     msg['To'] = addr_to  # Получатель
     msg['Subject'] = 'Тема сообщения'  # Тема сообщения
 
-    text_msg = "Текст сообщения"
     msg.attach(MIMEText(text_msg, 'plain'))  # Добавляем в сообщение текст
 
     server = smtplib.SMTP_SSL('smtp.yandex.ru', 465)  # Создаем объект SMTP
