@@ -8,8 +8,8 @@ class Form(QWidget):
         super().__init__(parent)
 
         self.line_edit = QLineEdit(
-            placeholderText=self.tr("Email"))
-        self.push_button = QPushButton(self)
+            placeholderText=self.tr("Email: shiaz@yandex.ru"))
+        self.push_button = QPushButton(self.tr("Отправить"))
         self.label = QLabel(
             text=self.tr("Отправить на почту"), alignment=Qt.AlignCenter
         )
@@ -25,7 +25,6 @@ class Form(QWidget):
         self.push_button.setObjectName(u"push_button")
         self.push_button.setAutoFillBackground(True)
         self.setWindowTitle("Отправить по почте")
-        self.push_button.setText(QCoreApplication.translate("Dialog", u"Отправить", None))
         vertical_spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
         layout = QVBoxLayout(self)
