@@ -1,7 +1,8 @@
+from pathlib import Path
 
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QLineEdit, QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem, QSizePolicy, \
-    QPlainTextEdit
+    QPlainTextEdit, QHBoxLayout, QFileDialog
 
 
 class Form(QWidget):
@@ -23,6 +24,7 @@ class Form(QWidget):
         self.label = QLabel(
             text=self.tr("Отправить на почту"), alignment=Qt.AlignCenter
         )
+        self.image_path_widget = PathEdit()
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -39,6 +41,7 @@ class Form(QWidget):
 
         layout = QVBoxLayout(self)
         layout.setSpacing(0)
+        layout.addWidget(self.image_path_widget)
         layout.addItem(vertical_spacer)
         layout.addWidget(self.label)
         layout.addWidget(self.addr_from_lineedit)
@@ -48,3 +51,32 @@ class Form(QWidget):
         layout.addWidget(self.push_button)
 
         self.resize(320, 480)
+
+
+class PathEdit(QWidget):
+    path = ""
+
+    def __init__(self) -> None:
+        QWidget.__init__(self)
+
+        self.button = QPushButton("Выбрать файл")
+        self.edit = QLineEdit(self.path)
+
+        self.layout = QHBoxLayout()
+        self.layout.addWidget(self.button)
+        self.layout.addWidget(self.edit)
+        self.setLayout(self.layout)
+        self.button.clicked.connect(self.openbox)
+
+    def openbox(self) -> None:
+        """
+        Открытие окна выбора файла.
+        """
+        dialog = QFileDialog(self)
+        dialog.setFileMode(QFileDialog.FileMode.Directory)
+        filename, _ = dialog.getOpenFileName(self, "Open File",
+                                             "",
+                                             "Images (*.png *.xpm *.jpg)")
+
+        self.path = Path(filename)
+        self.edit.setText(self.path.name)
