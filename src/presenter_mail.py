@@ -2,6 +2,7 @@ import sys
 
 from PySide2.QtWidgets import QApplication
 
+from src.constants import TESSERACT_DIR
 from src.img_to_str import ImgReader
 from src.model import send_mail
 from src.view import Form
@@ -12,7 +13,7 @@ class MailSender:
         self.form = Form()
         self.form.show()
         self.connect_signals()
-        self.reader = ImgReader()
+        self.reader = ImgReader(TESSERACT_DIR)
         sys.exit(app.exec_())
 
     def connect_signals(self) -> None:
