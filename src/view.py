@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, Signal
 from PySide2.QtWidgets import QLineEdit, QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem, QSizePolicy, \
     QPlainTextEdit, QHBoxLayout, QFileDialog
 
@@ -54,6 +54,7 @@ class Form(QWidget):
 
 
 class PathEdit(QWidget):
+    path_changed = Signal(str)
     path = ""
 
     def __init__(self) -> None:
@@ -80,3 +81,4 @@ class PathEdit(QWidget):
 
         self.path = Path(filename)
         self.edit.setText(self.path.name)
+        self.path_changed.emit(str(self.path))

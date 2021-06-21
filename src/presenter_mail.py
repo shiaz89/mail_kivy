@@ -1,22 +1,26 @@
 import sys
+from pathlib import Path
 
 from PySide2.QtWidgets import QApplication
 
+from src.img_to_str import ImgReader
 from src.model import send_mail
 from src.view import Form
 
 
-class MailSender():
-    def __init__(self, app: QApplication):
+class MailSender:
+    def __init__(self, app: QApplication) -> None:
         self.form = Form()
         self.form.show()
         self.connect_signals()
+        self.reader = ImgReader()
         sys.exit(app.exec_())
 
-    def connect_signals(self):
+    def connect_signals(self) -> None:
         self.form.push_button.clicked.connect(self.click_send_mail)
+        self.form.image_path_widget.path_changed.connect(self.change_img_path)
 
-    def click_send_mail(self):
+    def click_send_mail(self) -> None:
         addr_from = self.form.addr_from_lineedit.text() if self.form.addr_from_lineedit.text() else "shiaz@yandex.ru"
         password = self.form.password_lineedit.text() if self.form.password_lineedit.text() else "siz035036503530"
 
@@ -25,3 +29,8 @@ class MailSender():
         text = self.form.text_lineedit.toPlainText()
         text = text if text else "Ничего не ввел"
         send_mail(addr_from=addr_from, addr_to=addr_to, password=password, text_msg=text)
+
+    def change_img_path(self, img_path: str) -> None:
+        # img_path = Path(img_path)
+        img_str = self.reader.read_img(img_path, "rus")
+        self.form.text_lineedit.setPlainText(img_str)
