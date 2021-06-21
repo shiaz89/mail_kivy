@@ -1,5 +1,4 @@
 import sys
-from pathlib import Path
 
 from PySide2.QtWidgets import QApplication
 

@@ -16,7 +16,7 @@ class Form(QWidget):
             placeholderText=self.tr("Password"), echoMode=QLineEdit.Password
         )
         self.addr_to_lineedit = QLineEdit(
-            placeholderText=self.tr("Email: shiaz@yandex.ru"))
+            placeholderText=self.tr("Email кому отправить: shiaz@yandex.ru"))
         self.text_lineedit = QPlainTextEdit(
             placeholderText=self.tr("Введите сообщение"))
 
@@ -49,6 +49,9 @@ class Form(QWidget):
         layout.addWidget(self.addr_to_lineedit)
         layout.addWidget(self.text_lineedit)
         layout.addWidget(self.push_button)
+
+        self.addr_from_lineedit.setEnabled(False)
+        self.password_lineedit.setEnabled(False)
 
         self.resize(320, 480)
 
