@@ -31,6 +31,5 @@ class MailSender:
         send_mail(addr_from=addr_from, addr_to=addr_to, password=password, text_msg=text)
 
     def change_img_path(self, img_path: str) -> None:
-        # img_path = Path(img_path)
         img_str = self.reader.read_img(img_path, "rus")
         self.form.text_lineedit.setPlainText(img_str)
