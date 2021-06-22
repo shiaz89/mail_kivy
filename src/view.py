@@ -85,3 +85,6 @@ class PathEdit(QWidget):
         self.path = Path(filename)
         self.edit.setText(self.path.name)
         self.path_changed.emit(str(self.path))
+
+    def clear(self):
+        self.edit.clear()

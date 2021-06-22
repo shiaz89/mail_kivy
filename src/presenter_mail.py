@@ -29,7 +29,17 @@ class MailSender:
         text = self.form.text_lineedit.toPlainText()
         text = text if text else "Ничего не ввел"
         send_mail(addr_from=addr_from, addr_to=addr_to, password=password, text_msg=text)
+        self.form.text_lineedit.clear()
+        self.form.image_path_widget.cleer()
+
 
     def change_img_path(self, img_path: str) -> None:
+        """
+        Если изменился путь к картинке, то идет запись в поле пути до картинки
+        и разбор изображения на слова. При перезагрузке сообщение обнавляется.
+
+        :param img_path: Путь до изображения.
+        """
         img_str = self.reader.read_img(img_path, "rus")
-        self.form.text_lineedit.setPlainText(img_str)
+        self.form.text_lineedit.setPlainText(f"Текст с картинки:")
+        self.form.text_lineedit.appendPlainText(img_str)
