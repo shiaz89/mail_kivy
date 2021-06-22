@@ -23,7 +23,7 @@ def send_mail(addr_from: str, addr_to: str, password: str, text_msg: str = 'Те
     msg.attach(MIMEText(text_msg, 'plain'))  # Добавляем в сообщение текст
 
     server = smtplib.SMTP_SSL('smtp.yandex.ru', 465)  # Создаем объект SMTP
-    # server.set_debuglevel(True)                         # Включаем режим отладки - если отчет не нужен, строку можно закомментировать
+    # server.set_debuglevel(True)     # Включаем режим отладки - если отчет не нужен, строку можно закомментировать
 
     server.ehlo()
     server.login(addr_from, password)
