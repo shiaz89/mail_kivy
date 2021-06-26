@@ -2,10 +2,10 @@ import sys
 
 from PySide2.QtWidgets import QApplication
 
-from src.constants import TESSERACT_DIR
-from src.img_to_str import ImgReader
-from src.model import send_mail
-from src.view import Form
+from constants import TESSERACT_DIR
+from img_to_str import ImgReader
+from model import send_mail
+from view import Form
 
 
 class MailSender:
@@ -30,7 +30,7 @@ class MailSender:
         text = text if text else "Ничего не ввел"
         send_mail(addr_from=addr_from, addr_to=addr_to, password=password, text_msg=text)
         self.form.text_lineedit.clear()
-        self.form.image_path_widget.cleer()
+        self.form.image_path_widget.clear()
 
 
     def change_img_path(self, img_path: str) -> None:

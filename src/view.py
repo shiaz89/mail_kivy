@@ -2,7 +2,7 @@ from pathlib import Path
 
 from PySide2.QtCore import Qt, Signal
 from PySide2.QtWidgets import QLineEdit, QPushButton, QVBoxLayout, QLabel, QWidget, QSpacerItem, QSizePolicy, \
-    QPlainTextEdit, QHBoxLayout, QFileDialog
+    QPlainTextEdit, QHBoxLayout, QFileDialog, QGridLayout, QCheckBox
 
 
 class Form(QWidget):
@@ -25,6 +25,7 @@ class Form(QWidget):
             text=self.tr("Отправить на почту"), alignment=Qt.AlignCenter
         )
         self.image_path_widget = PathEdit()
+        self.img_menu = ImgReaderMenu()
         self.setup_ui()
 
     def setup_ui(self) -> None:
@@ -52,7 +53,6 @@ class Form(QWidget):
 
         self.addr_from_lineedit.setEnabled(False)
         self.password_lineedit.setEnabled(False)
-
         self.resize(320, 480)
 
 
@@ -88,3 +88,19 @@ class PathEdit(QWidget):
 
     def clear(self):
         self.edit.clear()
+
+
+class ImgReaderMenu(QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        layout = QGridLayout()
+        self.lable = QLabel("Меню ")
+        self.read_img_button = QPushButton(self.tr("Прочесть"))
+        self.check_box_processing = QCheckBox('Преобразовать', self)
+
+        layout.addWidget(self.lable, 0, 0)
+        layout.addWidget(self.read_img_button, 0, 1)
+        layout.addWidget(self.check_box_processing, 1, 0)
+
+
+
