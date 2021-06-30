@@ -13,16 +13,31 @@ class ImgReader:
         pytesseract.pytesseract.tesseract_cmd = tesseract_path.joinpath("tesseract.exe")
         self.tessdata_dir_config = f"--tessdata-dir '{tesseract_path.joinpath('tessdata')}'"
 
-    def read_img(self, filename: str, lang: str = "eng"):
+    def read_img(self, filename: str, lang: str = "eng") -> None:
+        """
+        Чтение и вывод текста с картинки.
+
+        :param filename: Имя изображения.
+        :param lang: Язык на изображении.
+        :return: Текст с картинки.
+        """
         # Подключение фото
         image = cv2.imread(filename)
         s = pytesseract.image_to_string(image, config=self.tessdata_dir_config, lang=lang)
         return s
 
-    def read_processing_img(self, filename: str, lang: str, chan: int = 100, size: int = 150):
-        # Подключение фото
+    def read_processing_img(self, filename: str, lang: str, chan: int = 100, size: int = 150) -> None:
+        """
+        Чтение и вывод текста с картинки с предобработкой изображения.
+
+        :param filename: Имя изображения.
+        :param lang: Язык на изображении.
+        :param chan: Пороговое значение пикселей.
+        (Все пиксели, которые темнее (меньше) 127 заменены на 0, а все, которые ярче (больше) 127, — на 255.)
+        :param size: Процент от изначального размера.
+        """
         image = cv2.imread(filename)
-        scale_percent = int(size)  # Процент от изначального размера
+        scale_percent = int(size)
         width = int(image.shape[1] * scale_percent / 100)
         height = int(image.shape[0] * scale_percent / 100)
         dim = (width, height)

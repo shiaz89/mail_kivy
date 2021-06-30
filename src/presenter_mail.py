@@ -10,6 +10,7 @@ from view import Form
 
 class MailSender:
     def __init__(self, app: QApplication) -> None:
+        self.img_path = ""
         self.form = Form()
         self.form.show()
         self.connect_signals()
@@ -28,10 +29,12 @@ class MailSender:
 
         text = self.form.text_lineedit.toPlainText()
         text = text if text else "Ничего не ввел"
-        send_mail(addr_from=addr_from, addr_to=addr_to, password=password, text_msg=text)
-        self.form.text_lineedit.clear()
-        self.form.image_path_widget.clear()
-
+        try:
+            send_mail(addr_from=addr_from, addr_to=addr_to, password=password, text_msg=text, file=self.img_path)
+        except FileNotFoundError as e:
+            self.form.image_path_widget.clear()
+            self.form.text_lineedit.clear()
+            self.form.text_lineedit.setPlainText(str(e))
 
     def change_img_path(self, img_path: str) -> None:
         """
@@ -43,3 +46,4 @@ class MailSender:
         img_str = self.reader.read_img(img_path, "rus")
         self.form.text_lineedit.setPlainText(f"Текст с картинки:")
         self.form.text_lineedit.appendPlainText(img_str)
+        self.img_path = img_path
