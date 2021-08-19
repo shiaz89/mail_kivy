@@ -22,8 +22,8 @@ class MailSender:
         self.form.image_path_widget.path_changed.connect(self.change_img_path)
 
     def click_send_mail(self) -> None:
-        addr_from = self.form.addr_from_lineedit.text() if self.form.addr_from_lineedit.text() else "shiaz@yandex.ru"
-        password = self.form.password_lineedit.text() if self.form.password_lineedit.text() else "siz035036503530"
+        addr_from = self.form.addr_from_lineedit.text()
+        password = self.form.password_lineedit.text()
 
         addr_to = self.form.addr_to_lineedit.text() if self.form.addr_to_lineedit.text() else "shiaz@yandex.ru"
 
