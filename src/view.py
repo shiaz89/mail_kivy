@@ -51,8 +51,8 @@ class Form(QWidget):
         layout.addWidget(self.text_lineedit)
         layout.addWidget(self.push_button)
 
-        self.addr_from_lineedit.setEnabled(False)
-        self.password_lineedit.setEnabled(False)
+        # self.addr_from_lineedit.setEnabled(False)
+        # self.password_lineedit.setEnabled(False)
         self.resize(320, 480)
 
 
